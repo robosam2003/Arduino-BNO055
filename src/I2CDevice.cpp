@@ -26,37 +26,46 @@ byte I2CDevice::readRegister(byte offset) {
 }
 
 bool I2CDevice::writeRegister(byte offset, byte data) {
-    pipe->beginTransmission(address);
-    pipe->write(offset);
-    pipe->write(data);
-    return pipe->endTransmission() == 0; // 0 means success
+    if (!(pipe->available())) { Serial.println("WIRE NOT AVAILABLE "); Serial.println(Wire.available());}
+    else {
+        pipe->beginTransmission(address);
+        pipe->write(offset);
+        pipe->write(data);
+        return pipe->endTransmission() == 0; // 0 means success
+    }
 }
 
 void I2CDevice::readMultipleRegisters(uint8_t *outputPointer, uint8_t offset, uint8_t length) {
-    uint8_t externalSpacePointer = 0;
-    char c = 0;
-    pipe->beginTransmission(address);
-    pipe->write(offset);
-    pipe->endTransmission();
+    if (!(pipe->available())) { Serial.println("WIRE NOT AVAILABLE "); Serial.println(Wire.available());}
+    else {
+        uint8_t externalSpacePointer = 0;
+        char c = 0;
+        pipe->beginTransmission(address);
+        pipe->write(offset);
+        pipe->endTransmission();
 
-    pipe->requestFrom(address, length);
-    while (pipe->available() && (externalSpacePointer < length)) {
-        c = pipe->read();
-        *outputPointer = c;
-        outputPointer++;
-        externalSpacePointer++;
+        pipe->requestFrom(address, length);
+        while (pipe->available() && (externalSpacePointer < length)) {
+            c = pipe->read();
+            *outputPointer = c;
+            outputPointer++;
+            externalSpacePointer++;
+        }
     }
 }
 
 bool I2CDevice::writeMultipleRegisters(byte *buffer, byte offset, byte length) {
-    pipe->beginTransmission(address);
-    pipe->write(offset);
+    if (!(pipe->available())) { Serial.println("WIRE NOT AVAILABLE "); Serial.println(Wire.available());}
+    else {
+        pipe->beginTransmission(address);
+        pipe->write(offset);
 
-    byte bytesWritten = 0;
-    while (bytesWritten < length) {
-        pipe->write(*buffer);
-        buffer++;
-        bytesWritten++;
+        byte bytesWritten = 0;
+        while (bytesWritten < length) {
+            pipe->write(*buffer);
+            buffer++;
+            bytesWritten++;
+        }
+        return pipe->endTransmission() == 0; // 0 means success
     }
-    return pipe->endTransmission() == 0; // 0 means success
 }
