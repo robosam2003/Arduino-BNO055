@@ -32,6 +32,8 @@ typedef struct {
     Quaternion quaternion;
     Vector<double> euler;
 
+
+
 } bno055_burst_t;
 
 enum BNO055_TEMP_SOURCE_TYPE {
