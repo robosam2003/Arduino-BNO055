@@ -15,8 +15,10 @@ public:
     T getZ();
 
     /// I (sam) have added the [] operator because it's just easier than getX,Y,Z etc sometimes
-    T operator[] (size_t n);
+    const T & operator[](size_t index) const;
+    T & operator[](size_t index);
 
+    T at    (size_t n);
     void setX(T value);
     void setY(T value);
     void setZ(T value);
@@ -50,6 +52,21 @@ T Vector<T>::getZ() {
     return _dimensions[2];
 }
 
+
+// From https://github.com/janelia-arduino/Vector
+template <typename T>
+const T & Vector<T>::operator[](size_t index) const
+{
+    return _dimensions[index];
+}
+
+template <typename T>
+T & Vector<T>::operator[](size_t index)
+{
+    return _dimensions[index];
+}
+
+
 template<typename T>
 void Vector<T>::setX(T value) {
     _dimensions[0] = value;
@@ -65,11 +82,9 @@ void Vector<T>::setZ(T value) {
     _dimensions[2] = value;
 }
 
-
-
 template<typename T>
-T Vector<T>::operator[](size_t n) {
-    return _dimensions[n];
+T Vector<T>::at(size_t n) {
+    return nullptr;
 }
 
 
