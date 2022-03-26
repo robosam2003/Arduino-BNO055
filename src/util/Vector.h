@@ -14,6 +14,9 @@ public:
     T getY();
     T getZ();
 
+    /// I (sam) have added the [] operator because it's just easier than getX,Y,Z etc sometimes
+    T operator[] (size_t n);
+
     void setX(T value);
     void setY(T value);
     void setZ(T value);
@@ -60,6 +63,13 @@ void Vector<T>::setY(T value) {
 template<typename T>
 void Vector<T>::setZ(T value) {
     _dimensions[2] = value;
+}
+
+
+
+template<typename T>
+T Vector<T>::operator[](size_t n) {
+    return _dimensions[n];
 }
 
 
