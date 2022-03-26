@@ -167,6 +167,7 @@ NDOF_FMC_OFF fusion mode.
  * The following registers are on PAGE 0 of the register map
  */
 
+// An enum might be better here??
 #define BNO055_CHIP_ID              0x00
 #define BNO055_ACC_ID               0x01
 #define BNO055_MAG_ID               0x02
@@ -236,12 +237,58 @@ NDOF_FMC_OFF fusion mode.
 #define BNO055_SYS_STATUS           0x39
 #define BNO055_SYS_ERR              0x3A
 #define BNO055_UNIT_SEL             0x3B
-#define BNO055_OPR_MODE_REG             0x3D
-#define BNO055_PWR_MODE_REG             0x3E
+#define BNO055_OPR_MODE_REG         0x3D
+#define BNO055_PWR_MODE_REG         0x3E
 #define BNO055_SYS_TRIGGER          0x3F
 #define BNO055_TEMP_SOURCE          0x40
 #define BNO055_AXIS_MAP_CONFIG      0x41
 #define BNO055_AXIS_MAP_SIGN        0x42
+
+#define SIC_MATRIX_LSB0             0x43
+#define SIC_MATRIX_MSB0             0x44
+#define SIC_MATRIX_LSB1             0x45
+#define SIC_MATRIX_MSB1             0x46
+#define SIC_MATRIX_LSB2             0x47
+#define SIC_MATRIX_MSB2             0x48
+#define SIC_MATRIX_LSB3             0x49
+#define SIC_MATRIX_MSB3             0x4A
+#define SIC_MATRIX_LSB4             0x4B
+#define SIC_MATRIX_LSB5             0x4D
+#define SIC_MATRIX_MSB5             0x4E
+#define SIC_MATRIX_LSB6             0x4F
+#define SIC_MATRIX_MSB6             0x50
+#define SIC_MATRIX_LSB7             0x51
+#define SIC_MATRIX_MSB7             0x52
+#define SIC_MATRIX_LSB8             0x53
+#define SIC_MATRIX_MSB8             0x54
+
+
+#define ACC_OFFSET_X_LSB            0x55
+#define ACC_OFFSET_X_MSB            0x56
+#define ACC_OFFSET_Y_LSB            0x57
+#define ACC_OFFSET_Y_MSB            0x58
+#define ACC_OFFSET_Z_LSB            0x59
+#define ACC_OFFSET_Z_MSB            0x5A
+
+#define MAG_OFFSET_X_LSB            0x5B
+#define MAG_OFFSET_X_MSB            0x5C
+#define MAG_OFFSET_Y_LSB            0x5D
+#define MAG_OFFSET_Y_MSB            0x5E
+#define MAG_OFFSET_Z_LSB            0x5F
+#define MAG_OFFSET_Z_MSB            0x60
+
+#define GYR_OFFSET_X_LSB            0x61
+#define GYR_OFFSET_X_MSB            0x62
+#define GYR_OFFSET_Y_LSB            0x63
+#define GYR_OFFSET_Y_MSB            0x64
+#define GYR_OFFSET_Z_LSB            0x65
+#define GYR_OFFSET_Z_MSB            0x66
+
+#define ACC_RADIUS_LSB              0x67
+#define ACC_RADIUS_MSB              0x68
+#define MAG_RADIUS_LSB              0x69
+#define MAG_RADIUS_MSB              0x7A
+
 
 /**
  * PAGE 1
