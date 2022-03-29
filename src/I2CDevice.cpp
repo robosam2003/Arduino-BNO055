@@ -11,6 +11,8 @@ I2CDevice::I2CDevice(byte i2c_address, TwoWire *i2c_pipe) {
 }
 
 byte I2CDevice::readRegister(byte offset) {
+
+
     pipe->beginTransmission(address);
     pipe->write(offset);
     pipe->endTransmission();
@@ -18,6 +20,7 @@ byte I2CDevice::readRegister(byte offset) {
     byte numBytes = 1;
     byte result = 0;
     pipe->requestFrom(address, numBytes);
+    if (!(pipe->available())) { Serial.println("WIRE NOT AVAILABLE "); Serial.println(Wire.available());}
     while (pipe->available()) {
         result = pipe->read();
     }
@@ -26,46 +29,43 @@ byte I2CDevice::readRegister(byte offset) {
 }
 
 bool I2CDevice::writeRegister(byte offset, byte data) {
-    if (!(pipe->available())) { Serial.println("WIRE NOT AVAILABLE "); Serial.println(Wire.available());}
-    else {
-        pipe->beginTransmission(address);
-        pipe->write(offset);
-        pipe->write(data);
-        return pipe->endTransmission() == 0; // 0 means success
-    }
+
+    pipe->beginTransmission(address);
+    pipe->write(offset);
+    pipe->write(data);
+    return pipe->endTransmission() == 0; // 0 means success
+
 }
 
 void I2CDevice::readMultipleRegisters(uint8_t *outputPointer, uint8_t offset, uint8_t length) {
-    if (!(pipe->available())) { Serial.println("WIRE NOT AVAILABLE "); Serial.println(Wire.available());}
-    else {
-        uint8_t externalSpacePointer = 0;
-        char c = 0;
-        pipe->beginTransmission(address);
-        pipe->write(offset);
-        pipe->endTransmission();
 
-        pipe->requestFrom(address, length);
-        while (pipe->available() && (externalSpacePointer < length)) {
-            c = pipe->read();
-            *outputPointer = c;
-            outputPointer++;
-            externalSpacePointer++;
-        }
+    uint8_t externalSpacePointer = 0;
+    char c = 0;
+    pipe->beginTransmission(address);
+    pipe->write(offset);
+    pipe->endTransmission();
+
+    pipe->requestFrom(address, length);
+    if (!(pipe->available())) { Serial.println("WIRE NOT AVAILABLE "); Serial.println(Wire.available());}
+    while (pipe->available() && (externalSpacePointer < length)) {
+        c = pipe->read();
+        *outputPointer = c;
+        outputPointer++;
+        externalSpacePointer++;
     }
+
 }
 
 bool I2CDevice::writeMultipleRegisters(byte *buffer, byte offset, byte length) {
-    if (!(pipe->available())) { Serial.println("WIRE NOT AVAILABLE "); Serial.println(Wire.available());}
-    else {
-        pipe->beginTransmission(address);
-        pipe->write(offset);
 
-        byte bytesWritten = 0;
-        while (bytesWritten < length) {
-            pipe->write(*buffer);
-            buffer++;
-            bytesWritten++;
-        }
-        return pipe->endTransmission() == 0; // 0 means success
+    pipe->beginTransmission(address);
+    pipe->write(offset);
+
+    byte bytesWritten = 0;
+    while (bytesWritten < length) {
+        pipe->write(*buffer);
+        buffer++;
+        bytesWritten++;
     }
+    return pipe->endTransmission() == 0; // 0 means success
 }
