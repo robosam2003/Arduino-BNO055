@@ -5,6 +5,7 @@
 
 #ifndef BNO055_CONSTANTS_H
 #define BNO055_CONSTANTS_H
+#define pi 3.14159265359
 
 // Comments in this file are not mine and are taken from the BNO055 datasheet
 
