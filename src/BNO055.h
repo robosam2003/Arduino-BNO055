@@ -294,7 +294,7 @@ public:
 private:
     int BNO055_ACCEL_CONVERSION_FACTOR = 100;
     int BNO055_MAG_CONVERSION_FACTOR = 16;
-    int BNO055_GYRO_CONVERSION_FACTOR = 16;
+    int BNO055_GYRO_CONVERSION_FACTOR = 16; // 16 for degrees, 900 for radians
     double BNO055_QUAT_CONVERSION_FACTOR = 1 << 14;
 
     Vector<int16_t> getVector(byte offset);
