@@ -6,7 +6,7 @@
 #ifndef I2CDEVICE_H
 #define I2CDEVICE_H
 
-#include "Wire.h"
+#include "i2c_driver_wire.h"
 
 class I2CDevice {
 public:
