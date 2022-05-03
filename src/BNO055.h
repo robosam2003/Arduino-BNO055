@@ -331,8 +331,8 @@ public:
                 BNO055 bno055,
                 BNO055::Interrupt::EnabledAxes axesSetting0,
                 void (*callback0)(), int pin,
-                byte duration0 = 0b1111, // default value from datasheet
-                byte threshold0 = 0b11000000  // default value from datasheet
+                byte duration0 = 0b1110, // default value from datasheet
+                byte threshold0 = 0b01111111 // default value from datasheet
         ) : Interrupt(bno055, 5, 5, axesSetting0, callback0, pin) {
             duration = duration0;
             threshold = threshold0;
